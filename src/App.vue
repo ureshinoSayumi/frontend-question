@@ -22,8 +22,7 @@ const displayOptions = ref([])
 onMounted(async () => {
   try {
     const response = await fetch(url)
-    const data = await response.json()
-    restcountriesOptions.value = data
+    restcountriesOptions.value = await response.json()
   } catch (error) {
     console.error(error)
   }
@@ -44,10 +43,9 @@ const debounce = (func, delay) => {
 const search = debounce(() => {
   if (searchVal.value === '') {
     displayOptions.value = []
-    return []
+    return 
   }
 
-  
   displayOptions.value = []
   restcountriesOptions.value.map(item => {
     if (item.name.common.toLowerCase().search(searchVal.value.toLowerCase()) !== -1) {
